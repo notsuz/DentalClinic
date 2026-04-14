@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Contact | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <h1>Contact</h1>
+      <p class="lead">Have a question? Send a message and we’ll respond as soon as possible.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container form-layout">
+      <div class="panel">
+        <form method="post" class="form">
+          {% csrf_token %}
+          <div class="form-grid">
+            <div class="field">
+              <label for="{{ form.full_name.id_for_label }}">Full name</label>
+              {{ form.full_name }}
+              {% for e in form.full_name.errors %}<div class="error">{{ e }}</div>{% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.email.id_for_label }}">Email</label>
+              {{ form.email }}
+              {% for e in form.email.errors %}<div class="error">{{ e }}</div>{% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.phone.id_for_label }}">Phone (optional)</label>
+              {{ form.phone }}
+            </div>
+            <div class="field">
+              <label for="{{ form.subject.id_for_label }}">Subject (optional)</label>
+              {{ form.subject }}
+            </div>
+            <div class="field field-wide">
+              <label for="{{ form.message.id_for_label }}">Message</label>
+              {{ form.message }}
+              {% for e in form.message.errors %}<div class="error">{{ e }}</div>{% endfor %}
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <a class="btn btn-ghost" href="{% url 'appointment' %}">Request appointment</a>
+          </div>
+        </form>
+      </div>
+
+      <aside class="panel panel-soft">
+        <div class="mini-title">Clinic info</div>
+        <div class="muted mt-small">
+          {% if site_settings.phone %}<div><strong>Phone</strong>: {{ site_settings.phone }}</div>{% endif %}
+          {% if site_settings.email %}<div><strong>Email</strong>: {{ site_settings.email }}</div>{% endif %}
+          {% if site_settings.address %}<div><strong>Address</strong>: {{ site_settings.address }}</div>{% endif %}
+        </div>
+
+        <div class="mini-title mt">Hours</div>
+        <pre class="mini-pre">{{ site_settings.opening_hours }}</pre>
+      </aside>
+    </div>
+  </section>
+{% endblock %}
+

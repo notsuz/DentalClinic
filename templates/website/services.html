@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Services | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <h1>Services</h1>
+      <p class="lead">Explore care options designed for comfort, long-term health, and confident smiles.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card-grid">
+        {% for s in services %}
+          <div class="card card-wide">
+            <div class="card-icon" aria-hidden="true">
+              {% if s.icon_image %}
+                <img src="{{ s.icon_image.url }}" alt="" />
+              {% else %}
+                <span class="card-icon-text">{{ s.title|slice:":1" }}</span>
+              {% endif %}
+            </div>
+            <div class="card-title">{{ s.title }}</div>
+            {% if s.short_description %}<div class="muted">{{ s.short_description }}</div>{% endif %}
+            {% if s.description %}<div class="muted mt">{{ s.description }}</div>{% endif %}
+            <div class="mt">
+              <a class="btn btn-primary btn-small" href="{% url 'appointment' %}">Request this service</a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="muted">Add services in Admin → Services.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

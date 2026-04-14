@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}About | {{ site_settings.site_name }}{% endblock %}
+{% load static %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <h1>About</h1>
+      <p class="lead">{{ site_settings.tagline }}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-media">
+        <img class="about-image" src="{% static 'img/about-image.jpg' %}" alt="About {{ site_settings.site_name }}" />
+      </div>
+      <div>
+        <div class="pill pill-soft">Our approach</div>
+        <h2>{{ site_settings.about_title }}</h2>
+        <div class="lead">{{ site_settings.about_body|linebreaks }}</div>
+
+        <div class="check-grid">
+          <div class="check">Clear explanations and options</div>
+          <div class="check">Comfort-first dentistry</div>
+          <div class="check">Evidence-based treatment</div>
+          <div class="check">Respect for your time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container split-cta">
+      <div>
+        <h2>Visit Tuyou Dental</h2>
+        <p class="lead">Request an appointment and we’ll confirm the best time for you.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="{% url 'appointment' %}">Book appointment</a>
+        <a class="btn btn-ghost" href="{% url 'contact' %}">Contact</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

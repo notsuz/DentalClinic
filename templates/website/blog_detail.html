@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <a class="link" href="{% url 'blog_list' %}">← Back to blog</a>
+      <h1 class="mt-small">{{ post.title }}</h1>
+      <div class="muted">{% if post.published_at %}{{ post.published_at|date:"M j, Y" }}{% endif %}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article">
+      {% if post.cover_image_url %}
+        <img class="article-cover" src="{{ post.cover_image_url }}" alt="{{ post.title }}" />
+      {% endif %}
+      {% if post.excerpt %}<p class="lead">{{ post.excerpt }}</p>{% endif %}
+      <div class="article-body">
+        {{ post.body|linebreaks }}
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <div class="mini-title">Need help with this?</div>
+          <div class="muted">Request an appointment and we’ll guide you to the right treatment.</div>
+        </div>
+        <a class="btn btn-primary" href="{% url 'appointment' %}">Book appointment</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

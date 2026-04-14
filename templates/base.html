@@ -1,0 +1,91 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ site_settings.site_name }}{% endblock %}</title>
+    <meta name="description" content="{{ site_settings.tagline }}" />
+    <link rel="icon" type="image/png" href="{% static 'img/tuyouLogo.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/site.css' %}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-row">
+        <a class="brand" href="{% url 'home' %}">
+          <span class="brand-mark">
+            <img class="brand-logo" src="{% static 'img/tuyouLogo.png' %}" alt="{{ site_settings.site_name }} logo" />
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">{{ site_settings.site_name }}</span>
+            <span class="brand-tagline">{{ site_settings.tagline }}</span>
+          </span>
+        </a>
+
+        <nav class="nav">
+          <a href="{% url 'home' %}#services">Services</a>
+          <a href="{% url 'home' %}#about">About</a>
+          <a href="{% url 'home' %}#team">Team</a>
+          <a href="{% url 'home' %}#blog">Blog</a>
+          <a href="{% url 'home' %}#contact">Contact</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn btn-ghost" href="{% url 'home' %}#contact">Get in touch</a>
+          <a class="btn btn-primary" href="{% url 'appointment' %}">Book</a>
+        </div>
+      </div>
+    </header>
+
+    {% if messages %}
+      <div class="container flash-wrap">
+        {% for message in messages %}
+          <div class="flash flash-{{ message.tags|default:'info' }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="{% static 'img/tuyouLogo.png' %}" alt="{{ site_settings.site_name }} logo" />
+            <div>
+              <div class="footer-title">{{ site_settings.site_name }}</div>
+              <div class="muted">{{ site_settings.tagline }}</div>
+            </div>
+          </div>
+          <div class="footer-meta">
+            {% if site_settings.phone %}<div><strong>Phone</strong>: {{ site_settings.phone }}</div>{% endif %}
+            {% if site_settings.email %}<div><strong>Email</strong>: {{ site_settings.email }}</div>{% endif %}
+            {% if site_settings.address %}<div><strong>Address</strong>: {{ site_settings.address }}</div>{% endif %}
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">Hours</div>
+          <pre class="hours">{{ site_settings.opening_hours }}</pre>
+        </div>
+
+        <div>
+          <div class="footer-title">Explore</div>
+          <div class="footer-links">
+            <a href="{% url 'home' %}#services">Services</a>
+            <a href="{% url 'appointment' %}">Appointment</a>
+            <a href="{% url 'home' %}#blog">Blog</a>
+            <a href="{% url 'home' %}#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <div class="muted">© {% now "Y" %} {{ site_settings.site_name }}. All rights reserved.</div>
+      </div>
+    </footer>
+  </body>
+</html>
+

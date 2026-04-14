@@ -1,0 +1,255 @@
+{% load static %}
+
+  <section class="hero anchor" id="top">
+    <div class="container hero-grid">
+      <div>
+        <div class="pill">Gentle care • Modern clinic • Clear pricing</div>
+        <h1 class="hero-title">{{ site_settings.hero_title }}</h1>
+        <p class="hero-subtitle">{{ site_settings.hero_subtitle }}</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="{{ site_settings.hero_primary_cta_url }}">{{ site_settings.hero_primary_cta_text }}</a>
+          <a class="btn btn-ghost" href="{{ site_settings.hero_secondary_cta_url }}">{{ site_settings.hero_secondary_cta_text }}</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">4.9/5</div>
+            <div class="stat-label">Patient rating</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">Same-day</div>
+            <div class="stat-label">Emergency options</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">All ages</div>
+            <div class="stat-label">Family-friendly</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img class="hero-image" src="{% static 'img/hero-image.jpg' %}" alt="Clinic" />
+        <div class="hero-card-bottom">
+          <div>
+            <div class="mini-title">Opening hours</div>
+            <pre class="mini-pre">{{ site_settings.opening_hours }}</pre>
+          </div>
+          <a class="btn btn-primary btn-small" href="{% url 'appointment' %}">Book now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor section-services" id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>Featured services</h2>
+        <a class="link" href="{% url 'services' %}">View all</a>
+      </div>
+
+      <div class="card-grid">
+        {% for s in featured_services|default:services %}
+          <div class="card service-card">
+            <div class="card-icon" aria-hidden="true">
+              {% if s.icon_image %}
+                <img src="{{ s.icon_image.url }}" alt="" />
+              {% else %}
+                <span class="card-icon-text">{{ s.title|slice:":1" }}</span>
+              {% endif %}
+            </div>
+            <div class="card-title">{{ s.title }}</div>
+            <div class="muted">{{ s.short_description }}</div>
+            <div class="service-card-actions">
+              <a class="btn btn-primary btn-small" href="{% url 'appointment' %}">Book</a>
+              <a class="btn btn-ghost btn-small" href="{% url 'services' %}">Details</a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="muted">Add services in Admin → Services.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt anchor" id="about">
+    <div class="container about-grid">
+      <div class="about-media">
+        <img class="about-image" src="{% static 'img/about-image.jpg' %}" alt="About" />
+      </div>
+      <div>
+        <div class="pill pill-soft">Why choose us</div>
+        <h2>{{ site_settings.about_title }}</h2>
+        <p class="lead">{{ site_settings.about_body }}</p>
+
+        <div class="check-grid">
+          <div class="check">Transparent treatment plans</div>
+          <div class="check">Modern sterilization standards</div>
+          <div class="check">Comfort-first approach</div>
+          <div class="check">Aftercare you can trust</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor" id="team">
+    <div class="container">
+      <div class="section-head">
+        <h2>Meet the team</h2>
+        <a class="link" href="{% url 'team' %}">See all</a>
+      </div>
+
+      <div class="people-grid">
+        {% for p in team %}
+          <div class="person">
+            {% if p.photo %}
+              <img class="avatar" src="{{ p.photo.url }}" alt="{{ p.name }}" />
+            {% else %}
+              <div class="avatar avatar-fallback">{{ p.name|slice:":1" }}</div>
+            {% endif %}
+            <div>
+              <div class="person-name">{{ p.name }}</div>
+              <div class="muted">{{ p.role }}</div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="muted">Add team members in Admin → Team members.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt anchor" id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <h2>What patients say</h2>
+        <a class="link" href="#leave-review">Leave feedback</a>
+      </div>
+
+      <div class="testimonials-layout">
+        <div class="quote-grid quote-grid-2">
+          {% for t in testimonials %}
+            <div class="quote">
+              <div class="stars">{% for _ in "12345"|slice:":" %}{% if forloop.counter <= t.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+              <div class="quote-text">“{{ t.quote }}”</div>
+              <div class="quote-author">
+                <strong>{{ t.author_name }}</strong>
+                {% if t.author_title %}<span class="muted">— {{ t.author_title }}</span>{% endif %}
+              </div>
+            </div>
+          {% empty %}
+            <div class="muted">No reviews yet. Be the first to leave feedback.</div>
+          {% endfor %}
+        </div>
+
+        <div class="panel panel-soft anchor testimonial-form" id="leave-review">
+          <div class="mini-title">Leave your feedback</div>
+          <div class="muted mt-small">Submitted reviews appear after approval.</div>
+
+          <form class="form mt" method="post" action="{% url 'submit_testimonial' %}">
+            {% csrf_token %}
+            <div class="form-grid">
+              <div class="field">
+                <label for="{{ testimonial_form.author_name.id_for_label }}">Your name</label>
+                {{ testimonial_form.author_name }}
+              </div>
+              <div class="field">
+                <label for="{{ testimonial_form.rating.id_for_label }}">Rating (1–5)</label>
+                {{ testimonial_form.rating }}
+              </div>
+              <div class="field field-wide">
+                <label for="{{ testimonial_form.quote.id_for_label }}">Feedback</label>
+                {{ testimonial_form.quote }}
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Submit</button>
+              <a class="btn btn-ghost" href="{% url 'appointment' %}">Book appointment</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor" id="book">
+    <div class="container split-cta">
+      <div>
+        <h2>Ready for a healthier smile?</h2>
+        <p class="lead">Tell us what you need — we’ll confirm your time and answer questions before you arrive.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="{% url 'appointment' %}">Request appointment</a>
+        <a class="btn btn-ghost" href="{% url 'contact' %}">Ask a question</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt anchor" id="faqs">
+    <div class="container">
+      <div class="section-head">
+        <h2>FAQs</h2>
+        <a class="link" href="{% url 'contact' %}">Still unsure? Contact us</a>
+      </div>
+
+      <div class="faq-grid">
+        {% for f in faqs %}
+          <details class="faq">
+            <summary>{{ f.question }}</summary>
+            <div class="muted">{{ f.answer }}</div>
+          </details>
+        {% empty %}
+          <div class="muted">Add FAQs in Admin → FAQs.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor" id="blog">
+    <div class="container">
+      <div class="section-head">
+        <h2>Latest articles</h2>
+        <a class="link" href="{% url 'blog_list' %}">View all</a>
+      </div>
+
+      <div class="post-grid">
+        {% for post in posts %}
+          <a class="post-card" href="{{ post.get_absolute_url }}">
+            <div class="post-cover">
+              {% if post.cover_image_url %}
+                <img src="{{ post.cover_image_url }}" alt="{{ post.title }}" />
+              {% else %}
+                <div class="post-cover-fallback"></div>
+              {% endif %}
+            </div>
+            <div class="post-body">
+              <div class="post-title">{{ post.title }}</div>
+              <div class="muted">{{ post.excerpt|default:post.body|truncatechars:120 }}</div>
+            </div>
+          </a>
+        {% empty %}
+          <div class="muted">Add posts in Admin → Blog posts.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt anchor" id="contact">
+    <div class="container split-cta">
+      <div>
+        <h2>Contact Tuyou Dental</h2>
+        <p class="lead">
+          {% if site_settings.address %}{{ site_settings.address }}{% else %}We’re here to help — call or message us anytime.{% endif %}
+        </p>
+        <div class="muted mt-small">
+          {% if site_settings.phone %}<div><strong>Phone</strong>: {{ site_settings.phone }}</div>{% endif %}
+          {% if site_settings.email %}<div><strong>Email</strong>: {{ site_settings.email }}</div>{% endif %}
+        </div>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="{% url 'contact' %}">Send message</a>
+        <a class="btn btn-ghost" href="{% url 'appointment' %}">Book appointment</a>
+      </div>
+    </div>
+  </section>
+

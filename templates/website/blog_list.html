@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Blog | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="lead">Practical tips, clinic updates, and simple guides to protect your smile.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-grid">
+        {% for post in posts %}
+          <a class="post-card" href="{{ post.get_absolute_url }}">
+            <div class="post-cover">
+              {% if post.cover_image_url %}
+                <img src="{{ post.cover_image_url }}" alt="{{ post.title }}" />
+              {% else %}
+                <div class="post-cover-fallback"></div>
+              {% endif %}
+            </div>
+            <div class="post-body">
+              <div class="post-title">{{ post.title }}</div>
+              <div class="muted">{{ post.excerpt|default:post.body|truncatechars:140 }}</div>
+              <div class="muted mt-small">
+                {% if post.published_at %}{{ post.published_at|date:"M j, Y" }}{% endif %}
+              </div>
+            </div>
+          </a>
+        {% empty %}
+          <div class="muted">No posts yet. Add some in Admin → Blog posts.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

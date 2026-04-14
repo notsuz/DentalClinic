@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Team | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero">
+    <div class="container">
+      <h1>Our team</h1>
+      <p class="lead">Friendly clinicians focused on comfort, clarity, and great outcomes.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="team-grid">
+        {% for p in team %}
+          <div class="team-card">
+            <div class="team-media">
+              {% if p.photo %}
+                <img class="team-photo" src="{{ p.photo.url }}" alt="{{ p.name }}" />
+              {% else %}
+                <div class="team-photo fallback">{{ p.name|slice:":1" }}</div>
+              {% endif %}
+            </div>
+            <div class="team-body">
+              <div class="card-title">{{ p.name }}</div>
+              <div class="muted">{{ p.role }}</div>
+              {% if p.bio %}<div class="muted mt">{{ p.bio }}</div>{% endif %}
+              <div class="mt">
+                <a class="btn btn-primary btn-small" href="{% url 'appointment' %}">Book with us</a>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <div class="muted">Add team members in Admin → Team members.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
