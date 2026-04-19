@@ -22,12 +22,19 @@
           </span>
         </a>
 
-        <nav class="nav">
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav" id="navMenu">
           <a href="{% url 'home' %}#services">Services</a>
           <a href="{% url 'home' %}#about">About</a>
           <a href="{% url 'home' %}#team">Team</a>
           <a href="{% url 'home' %}#blog">Blog</a>
           <a href="{% url 'home' %}#contact">Contact</a>
+          <a class="nav-mobile-book" href="{% url 'appointment' %}">Book Now</a>
         </nav>
 
         <div class="nav-cta">
@@ -86,6 +93,23 @@
         <div class="muted">© {% now "Y" %} {{ site_settings.site_name }}. All rights reserved.</div>
       </div>
     </footer>
+
+    <script>
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+      });
+
+      // Close menu when a link is clicked
+      document.querySelectorAll('.nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          navToggle.classList.remove('active');
+        });
+      });
+    </script>
   </body>
 </html>
-

@@ -237,11 +237,11 @@
   <section class="section section-alt anchor" id="contact">
     <div class="container split-cta">
       <div>
-        <h2>Contact Tuyou Dental</h2>
-        <p class="lead">
-          {% if site_settings.address %}{{ site_settings.address }}{% else %}We’re here to help — call or message us anytime.{% endif %}
+        <h2 style="margin-bottom: 0.25rem;">Contact Us</h2> 
+        <p class="lead" style="margin-bottom: 0.5rem;">
+          <strong>Tuyou Dental Care</strong> • {% if site_settings.address %}{{ site_settings.address }}{% else %}Bhanimandal, Lalitpur{% endif %}
         </p>
-        <div class="muted mt-small">
+        <div class="muted" style="display: flex; gap: 15px; margin-top: 0;">
           {% if site_settings.phone %}<div><strong>Phone</strong>: {{ site_settings.phone }}</div>{% endif %}
           {% if site_settings.email %}<div><strong>Email</strong>: {{ site_settings.email }}</div>{% endif %}
         </div>
