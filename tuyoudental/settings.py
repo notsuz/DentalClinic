@@ -128,6 +128,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Where Vercel gathers static files for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+WHITENOISE_MANIFEST_STRICT = False
+
 # Modern Storage configuration for Django 4.2+ and WhiteNoise
 STORAGES = {
     "default": {
@@ -136,6 +138,7 @@ STORAGES = {
     "staticfiles": {
         # Ensure there is no typo in this path
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        
     },
 }
 
