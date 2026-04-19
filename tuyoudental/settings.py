@@ -25,26 +25,25 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'cloudinary_storage',       # MUST be #1
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Your Apps
-    'website.apps.WebsiteConfig',
-    'cloudinary_storage',
-    'cloudinary',
-    'tuyoudental', # your app
     
+    'cloudinary',
+    
+    'website.apps.WebsiteConfig', # ONLY keep this one, delete 'website' below it
 ]
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'Root',
+    'CLOUD_NAME': 'dvrf56dpr',
     'API_KEY': '419491894414183',
     'API_SECRET': 'CmNDCBKlwvQFTwEfUSSQSrXr17Q'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dvrf56dpr
 
@@ -131,7 +130,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Modern Storage configuration for Django 4.2+ and WhiteNoise
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         # Ensure there is no typo in this path
