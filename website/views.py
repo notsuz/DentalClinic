@@ -105,3 +105,5 @@ def submit_testimonial(request):
         messages.error(request, "Please fix the errors and try again.")
     return redirect("home")
 
+def gallery(request):
+    return render(request, "website/gallery.html", {"gallery": GalleryImage.objects.filter(active=True)})

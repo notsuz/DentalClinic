@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Contact | {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<section class="section section-alt">
+    <div class="container">
+      <div class="gallery-pure-grid">
+        {% for item in gallery %}
+          <div class="gallery-photo-item">
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+            <div class="photo-overlay">
+              <span class="plus-icon">+</span>
+            </div>
+          </div>
+        {% empty %}
+          <div class="muted">No photos found.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

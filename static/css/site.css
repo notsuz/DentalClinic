@@ -499,3 +499,55 @@ input:focus, select:focus, textarea:focus{
   .nav-toggle.active span:nth-child(2) { opacity: 0; }
   .nav-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 }
+
+/* gallary css */
+/* The Grid Container */
+.gallery-pure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller size cards */
+  gap: 12px; /* Tight gap for a modern look */
+}
+
+/* The Photo Wrapper */
+.gallery-photo-item {
+  position: relative;
+  aspect-ratio: 1 / 1; /* Forces a perfect square */
+  overflow: hidden;
+  border-radius: 8px; /* Slight rounding */
+  cursor: pointer;
+  background-color: #f0f0f0; /* Fallback color while loading */
+}
+
+/* The Actual Image */
+.gallery-photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This is crucial: it crops the image to fill the square */
+  transition: transform 0.4s ease;
+}
+
+/* Interaction Effects */
+.gallery-photo-item:hover img {
+  transform: scale(1.1);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2); /* Very subtle dark overlay on hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-photo-item:hover .photo-overlay {
+  opacity: 1;
+}
+
+.plus-icon {
+  color: white;
+  font-size: 2rem;
+  font-weight: 300;
+}

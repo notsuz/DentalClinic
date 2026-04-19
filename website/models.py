@@ -142,10 +142,10 @@ class FAQ(TimeStampedModel):
     def __str__(self) -> str:
         return self.question
 
-
 class GalleryImage(TimeStampedModel):
     title = models.CharField(max_length=120, blank=True, default="")
-    image_url = models.URLField()
+    # Changed from URLField to ImageField
+    image = models.ImageField(upload_to="gallery/" , null=True, blank=True) 
     caption = models.CharField(max_length=220, blank=True, default="")
     sort_order = models.PositiveIntegerField(default=100)
     active = models.BooleanField(default=True)
@@ -154,7 +154,8 @@ class GalleryImage(TimeStampedModel):
         ordering = ["sort_order", "-created_at"]
 
     def __str__(self) -> str:
-        return self.title or self.image_url
+        # Update the __str__ to use the new field name
+        return self.title or f"Image {self.id}"
 
 
 class BlogPost(TimeStampedModel):
