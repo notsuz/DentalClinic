@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dvrf56dpr',
     'API_KEY': '419491894414183',
-    'API_SECRET': 'CmNDCBKlwvQFTwEfUSSQSrXr17Q'
+    'API_SECRET': 'CmNDCBKlwvQFTwEfUSSQSrXr17Q',
+    'STATICFILES_STORAGE': None,
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -134,7 +135,7 @@ STORAGES = {
     },
     "staticfiles": {
         # Ensure there is no typo in this path
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
