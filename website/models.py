@@ -144,7 +144,6 @@ class FAQ(TimeStampedModel):
 
 class GalleryImage(TimeStampedModel):
     title = models.CharField(max_length=120, blank=True, default="")
-    # Changed from URLField to ImageField
     image = models.ImageField(upload_to="gallery/" , null=True, blank=True) 
     caption = models.CharField(max_length=220, blank=True, default="")
     sort_order = models.PositiveIntegerField(default=100)
