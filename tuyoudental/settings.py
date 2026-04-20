@@ -5,9 +5,13 @@ Django settings for tuyoudental project.
 from pathlib import Path
 import os
 import dj_database_url
+import sys
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like   this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tuyoudental.settings')
 
 
 # Quick-start development settings - unsuitable for production
@@ -101,6 +105,13 @@ if db_from_env:
         conn_max_age=600,
         ssl_require=True
     )
+
+
+if 'collectstatic' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }
 
 
 # Password validation
