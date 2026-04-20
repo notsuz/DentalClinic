@@ -30,8 +30,8 @@ class SiteSettings(TimeStampedModel):
     hero_secondary_cta_text = models.CharField(max_length=40, default="View Services")
     hero_secondary_cta_url = models.CharField(max_length=120, default="/services/")
 
-    hero_image_url = models.URLField(blank=True, default="")
-
+    # hero_image_url = models.URLField(blank=True, default="")
+    hero_image = models.ImageField(upload_to="hero/", null= True, blank= True)
     about_title = models.CharField(max_length=120, default="Trusted care for every stage.")
     about_body = models.TextField(
         default=(
@@ -44,7 +44,8 @@ class SiteSettings(TimeStampedModel):
             "\"We Cure With full cure\""
         )
     )
-    about_image_url = models.URLField(blank=True, default="")
+    # about_image_url = models.URLField(blank=True, default="")
+    about_image = models.ImageField(upload_to="about/", null= True, blank= True)
 
     opening_hours = models.TextField(
         blank=True,
