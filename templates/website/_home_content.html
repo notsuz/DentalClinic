@@ -75,7 +75,7 @@
   <section class="section section-alt anchor" id="about">
     <div class="container about-grid">
       <div class="about-media">
-        <img class="about-image" src="{% static 'img/about-image.jpg' %}" alt="About" />
+        <img class="about-image" src="{{ site_settings.about_image.url }}" alt="About {{ site_settings.site_name }}" />
       </div>
       <div>
         <div class="pill pill-soft">Why choose us</div>
