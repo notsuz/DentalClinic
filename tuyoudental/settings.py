@@ -13,15 +13,13 @@ from django.core.wsgi import get_wsgi_application
 
 
 
+
 load_dotenv()
 # Build paths inside the project like   this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tuyoudental.settings')
 
-application = get_wsgi_application()
-app = application
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
