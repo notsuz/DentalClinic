@@ -139,9 +139,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Where Vercel gathers static files for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-WHITENOISE_MANIFEST_STRICT = False
 
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_MANIFEST_STRICT = False
 
 # Modern Storage configuration for Django 4.2+ and WhiteNoise
 STORAGES = {
@@ -154,6 +156,7 @@ STORAGES = {
         
     },
 }
+
 
 
 # Media files (Uploaded images for Dental Services)
