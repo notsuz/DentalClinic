@@ -8,6 +8,11 @@ import dj_database_url
 import sys
 from dotenv import load_dotenv
 
+from django.core.wsgi import get_wsgi_application
+
+
+
+
 load_dotenv()
 # Build paths inside the project like   this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,6 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tuyoudental.settings')
 
+application = get_wsgi_application()
+app = application
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -107,6 +114,8 @@ if db_from_env:
         conn_max_age=600,
         ssl_require=True
     )
+else:
+    print("WARNING: DATABASE_URL not found in environment!")    
 
 
 if 'collectstatic' in sys.argv:
