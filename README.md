@@ -34,3 +34,6 @@ In Admin you can update:
 - Templates: `templates/`
 - Static assets: `static/`
 
+Hosted using varcel
+(tuyoudental.vercel.app)
+
