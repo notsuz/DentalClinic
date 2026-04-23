@@ -5,7 +5,7 @@ Dynamic dental clinic website built with **Python + Django** and **SQLite**.
 ## Run locally
 
 ```powershell
-cd "c:\Users\ifosu\OneDrive\Desktop\DentalAi"
+cd DentalAi
 python -m pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
