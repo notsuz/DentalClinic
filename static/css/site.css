@@ -551,3 +551,7 @@ input:focus, select:focus, textarea:focus{
   font-size: 2rem;
   font-weight: 300;
 }
+
+.button1{
+  border:1px solid rgba(255,255,255,.18);
+}
